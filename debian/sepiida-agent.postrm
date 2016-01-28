@@ -1,0 +1,16 @@
+#!/bin/sh                                             
+NAME=sepiida-agent                                        
+USER=sepiida-agent
+HOME=/var/lib/$NAME
+
+if [ "$1" = purge ]
+then
+    deluser --quiet --system $USER || true
+    rm -f $HOME/.ssh/authorized_keys*
+    rmdir --ignore-fail-on-non-empty $HOME/.ssh
+    rmdir --ignore-fail-on-non-empty $HOME
+fi
+
+#DEBHELPER#
+
+exit 0

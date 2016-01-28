@@ -1,0 +1,13 @@
+/var/log/sepiida-server.log {
+        rotate 7
+        compress
+        daily
+        missingok
+        prerotate
+                invoke-rc.d --quiet sepiida-server stop >/dev/null
+        endscript
+        postrotate
+                invoke-rc.d --quiet sepiida-server start >/dev/null
+        endscript
+        notifempty
+}

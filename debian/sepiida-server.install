@@ -1,0 +1,3 @@
+conf/server.conf /etc/sepiida/
+conf/known_hosts /etc/sepiida/
+conf/locationmap /etc/sepiida/

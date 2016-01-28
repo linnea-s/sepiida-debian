@@ -1,0 +1,5 @@
+sepiida (0.5.1~svn103) UNRELEASED; urgency=medium
+
+  * Updated debian packaging for jessie
+
+ -- Linnea Skogtvedt <linnea@linuxavdelingen.no>  Fri, 22 Jan 2016 12:09:44 +0100

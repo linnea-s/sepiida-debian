@@ -1,0 +1,39 @@
+#!/bin/sh
+NAME=sepiida-server
+USER=sepiida-server
+LOGFILE=/var/log/$NAME.log
+HOME=/var/run/$NAME
+KEY=/etc/sepiida/sepiida-server-rsa
+
+set -e
+case "$1" in
+    configure)
+        if ! id $USER > /dev/null 2>&1; then
+            echo Creating $USER user...
+            adduser --quiet --system --ingroup nogroup \
+                --home $HOME --shell /bin/false $USER
+            mkdir -p /etc/sepiida
+            chown $USER:root /etc/sepiida
+            chmod 750 /etc/sepiida
+            if [ ! -e $KEY ]
+            then
+                echo -n "Creating $NAME RSA key..."
+                ssh-keygen -q -t rsa -N '' -C $USER@$(hostname) -f $KEY
+                chown $USER $KEY
+            fi
+        fi
+        
+        touch $LOGFILE
+        chown $USER:adm $LOGFILE
+        chmod 640 $LOGFILE
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
